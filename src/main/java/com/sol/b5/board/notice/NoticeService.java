@@ -73,4 +73,7 @@ public class NoticeService implements BoardService {
 		return noticeMapper.getSelectList(pager);
 	}
 	
+	public BoardFileVO fileDown(BoardFileVO boardFileVO) throws Exception {
+		return noticeMapper.fileDown(boardFileVO);
+	}
 }

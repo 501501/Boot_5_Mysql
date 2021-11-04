@@ -11,6 +11,9 @@ public interface BoardMapper {
 	// 파일 저장
 	public int setFileInsert(BoardFileVO boardFileVO) throws Exception;
 	
+	// 파일 다운
+	public BoardFileVO fileDown(BoardFileVO boardFileVO) throws Exception;
+	
 	// update 글수정
 	public int setUpdate(BoardVO boardVO) throws Exception;
 	

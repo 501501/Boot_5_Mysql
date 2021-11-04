@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sol.b5.board.BoardFileVO;
 import com.sol.b5.board.BoardVO;
 import com.sol.b5.util.FileManager;
 import com.sol.b5.util.Pager;
@@ -86,4 +87,16 @@ public class NoticeController {
 		return mv;
 	}
 	
+	@GetMapping("fileDown")
+	public ModelAndView fileDown(BoardFileVO boardFileVO) throws Exception {
+		
+		ModelAndView mv = new ModelAndView();
+		boardFileVO = noticeService.fileDown(boardFileVO);
+		
+		mv.addObject("fileVO", boardFileVO);
+		mv.addObject("path", "/upload/notice");
+		
+		mv.setViewName("fileDown");
+		return mv;
+	}
 }

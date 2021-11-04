@@ -72,4 +72,8 @@
 	<insert id="setFileInsert" parameterType="BoardFileVO">
 		insert into noticeFiles values (null, #{num}, #{fileName}, #{oriName})
 	</insert>
+	
+	<select id="fileDown" parameterType="BoardFileVO" resultType="BoardFileVO">
+		select * from noticeFiles where fileNum = #{fileNum}
+	</select>
 </mapper>
