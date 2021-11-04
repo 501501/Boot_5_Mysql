@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sol.b5.board.notice.NoticeMapper">
+	<insert id="setInsert" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="num">
+		insert into notice (num, title, contents, writer, hit, regDate)
+		values (#{num}, #{title}, #{contents}, #{writer}, 0, now())
+	</insert>
+	
+	<update id="setUpdate" parameterType="BoardVO">
+		update notice set title = #{title}, contents = #{contents}
+		where num = #{num}
+	</update>
+	
+	<update id="setHitUpdate" parameterType="BoardVO">
+		update notice set hit = hit+1
+		where num = #{num}
+	</update>
+	
+	<delete id="setDelete" parameterType="BoardVO">
+		delete from notice 
+		where num = #{num}
+	</delete>
+	
+	<select id="getSelectOne" parameterType="BoardVO" resultMap="selectResult">
+		select N.*, NF.*
+		from notice N left join noticeFiles NF 
+		on (N.num = NF.num)
+		where n.num = #{num}
+	</select>
+	
+	<resultMap type="NoticeVO" id="selectResult">
+		<id column="num" property="num"/>
+		<result column="title" property="title"/>
+		<result column="contents" property="contents"/>
+		<result column="writer" property="writer"/>
+		<result column="hit" property="hit"/>
+		<result column="regDate" property="regDate"/>
+		<collection property="fileList" javaType="List" ofType="BoardFileVO">
+			<id column="fileNum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+		</collection>
+	</resultMap>
+	
+	<select id="getSelectList" parameterType="Pager" resultType="NoticeVO">
+		select * from notice 
+		where
+			<choose>
+				<when test="kind == 'writer'">writer</when>
+				<when test="kind == 'contents'">contents</when>
+				<otherwise>title</otherwise>
+			</choose>
+		like concat('%', #{search}, '%')
+		order by num desc
+		limit #{startRow}, #{perPage}
+	</select>
+	
+	<select id="getTotalCount" parameterType="Pager" resultType="Long">
+		select count(*) from notice
+		where
+			<choose>
+				<when test="kind == 'writer'">writer</when>
+				<when test="kind == 'contents'">contents</when>
+				<otherwise>title</otherwise>
+			</choose>
+		like concat('%', #{search}, '%')
+	</select>
+	
+	<insert id="setFileInsert" parameterType="BoardFileVO">
+		insert into noticeFiles values (null, #{num}, #{fileName}, #{oriName})
+	</insert>
+</mapper>
