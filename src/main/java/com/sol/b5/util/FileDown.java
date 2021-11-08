@@ -34,7 +34,7 @@ public class FileDown extends AbstractView {
 		// 3. 위 정보를 담는 파일 객체 생성
 		// realPath
 		path = request.getSession().getServletContext().getRealPath(path);
-		File file = new File(path, boardFileVO.getFileName());
+		File file = new File(path);
 		
 		// 한글 처리
 		response.setCharacterEncoding("UTF-8");

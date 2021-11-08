@@ -94,7 +94,7 @@ public class NoticeController {
 		boardFileVO = noticeService.fileDown(boardFileVO);
 		
 		mv.addObject("fileVO", boardFileVO);
-		mv.addObject("path", "/upload/notice");
+		mv.addObject("path", "/upload/notice/");
 		
 		mv.setViewName("fileDown");
 		return mv;
