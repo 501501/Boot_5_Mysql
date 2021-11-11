@@ -11,8 +11,9 @@
 </head>
 <body>
 	<div class="container mt-3">
-		<h1>${board} Insert Page</h1>
+		<h1>${board} Reply Page</h1>
 		<form:form modelAttribute="boardVO" enctype="multipart/form-data">
+			<form:hidden path="num"/>
 			<div class="mb-3 mt-3">
 				<label for="title" class="form-label">Title:</label>
 				<form:input path="title" id="title" cssClass="form-control" />

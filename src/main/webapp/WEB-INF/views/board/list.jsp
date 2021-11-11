@@ -43,7 +43,13 @@
 		<c:forEach items="${boardList}" var="boardVO">
 			<tr>
 				<td>${boardVO.num}</td>
-				<td><a href="./selectOne?num=${boardVO.num}">${boardVO.title}</a></td>
+				<td>
+				<c:catch>
+					<c:forEach begin="1" end="${boardVO.depth}">
+						--
+					</c:forEach>
+				</c:catch>
+				<a href="./selectOne?num=${boardVO.num}">${boardVO.title}</a></td>
 				<td>${boardVO.writer}</td>
 				<td>${boardVO.regDate}</td>
 				<td>${boardVO.hit}</td>
