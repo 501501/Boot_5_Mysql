@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/member/**")
@@ -21,6 +22,7 @@ public class MemberController {
 	
 	@GetMapping("memberJoin")
 	public void setInsert(@ModelAttribute MemberVO memberVO) throws Exception {
+		System.out.println("Member Login");
 		//return "member/memberJoin";
 	}
 	
@@ -29,7 +31,10 @@ public class MemberController {
 		if (memberService.memberError(memberVO, bindingResult)) {
 			return "member/memberJoin";
 		}
-		//int result = memberService.setInsert(memberVO, files);
+		int result = memberService.setInsert(memberVO, files);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:../");
+		
 		return "redirect:../";
 	}
 	
@@ -38,16 +43,16 @@ public class MemberController {
 	
 	}
 	
-	@PostMapping("memberLogin")
-	public String getSelectOne(MemberVO memberVO, HttpSession session) throws Exception {
-		memberVO = memberService.getSelectOne(memberVO);
-		
-		if (memberVO != null) {
-			session.setAttribute("member", memberVO);
-		}
-		
-		return "redirect:../";
-	}
+//	@PostMapping("memberLogin")
+//	public String getSelectOne(MemberVO memberVO, HttpSession session) throws Exception {
+//		memberVO = memberService.getSelectOne(memberVO);
+//		
+//		if (memberVO != null) {
+//			session.setAttribute("member", memberVO);
+//		}
+//		
+//		return "redirect:../";
+//	}
 	
 	@GetMapping("memberLogout")
 	public String getLogout(HttpSession session) throws Exception {

@@ -13,7 +13,7 @@ public interface MemberRepository {
 	public int setFileInsert(MemberFilesVO memberFilesVO) throws Exception;
 
 	// login
-	public MemberVO getSelectOne(MemberVO memberVO) throws Exception;
+	public MemberVO getSelectOne(String username) throws Exception;
 	
 	// id 중복 확인
 	public MemberVO getSelect(MemberVO memberVO) throws Exception;
